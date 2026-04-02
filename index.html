@@ -80,12 +80,19 @@
 
   /* ── HERO ── */
   .hero {
-    min-height:100vh; display:grid; grid-template-columns:1fr 1fr;
+    /* CHANGED: was min-height:100vh — now fixed compact height */
+    height: auto;
+    min-height: 0;
+    display:grid; grid-template-columns:1fr 1fr;
     padding-top:var(--nav-h); position:relative; overflow:hidden;
   }
   .hero-left {
-    background:var(--ink); display:flex; flex-direction:column; justify-content:center;
-    padding:clamp(3rem,6vw,5rem) clamp(1.5rem,5vw,5rem); position:relative;
+    background:var(--ink); display:flex; flex-direction:column;
+    /* CHANGED: justify-content from center to flex-start to kill top gap */
+    justify-content:flex-start;
+    /* CHANGED: tighter vertical padding */
+    padding: clamp(2rem,3.5vw,2.8rem) clamp(1.5rem,5vw,5rem);
+    position:relative;
   }
   .hero-left::after {
     content:''; position:absolute; right:-1px; top:0; bottom:0; width:70px;
@@ -93,19 +100,19 @@
   }
   .hero-tag {
     font-size:.72rem; letter-spacing:.15em; text-transform:uppercase;
-    color:var(--clay); margin-bottom:1.4rem;
+    color:var(--clay); margin-bottom:1rem;
     display:flex; align-items:center; gap:.8rem;
   }
   .hero-tag::before { content:''; width:28px; height:1px; background:var(--clay); flex-shrink:0; }
   .hero-name {
     font-family:'Cormorant Garamond',serif;
     font-size:clamp(3rem,6vw,5.5rem); font-weight:300; line-height:1.06;
-    color:var(--cream); margin-bottom:1.6rem; letter-spacing:-.01em;
+    color:var(--cream); margin-bottom:1.2rem; letter-spacing:-.01em;
   }
   .hero-name span { font-style:italic; color:var(--clay-light); }
   .hero-bio {
     font-size:clamp(.88rem,1.5vw,.95rem); line-height:1.78;
-    color:rgba(247,243,238,.65); max-width:380px; margin-bottom:2.5rem;
+    color:rgba(247,243,238,.65); max-width:380px; margin-bottom:1.8rem;
   }
   .hero-cta {
     display:inline-flex; align-items:center; gap:.7rem;
@@ -116,10 +123,12 @@
   .hero-cta:hover { background:var(--clay-dark); transform:translateY(-2px); }
 
   .hero-right {
-    background:var(--cream); display:flex; flex-direction:column; justify-content:center;
-    padding:clamp(3rem,6vw,5rem) clamp(1.5rem,5vw,5rem) clamp(3rem,6vw,5rem) clamp(2rem,6vw,6rem);
+    background:var(--cream); display:flex; flex-direction:column;
+    justify-content:flex-start;
+    /* CHANGED: tighter padding all around */
+    padding: clamp(2rem,3.5vw,2.8rem) clamp(1.5rem,5vw,5rem) clamp(2rem,3.5vw,2.8rem) clamp(2rem,6vw,6rem);
   }
-  .hero-stats { display:grid; grid-template-columns:1fr 1fr; gap:clamp(1.5rem,3vw,2.5rem); margin-bottom:3rem; }
+  .hero-stats { display:grid; grid-template-columns:1fr 1fr; gap:clamp(1rem,2vw,1.8rem); margin-bottom:1.8rem; }
   .stat { border-left:2px solid var(--clay); padding-left:1rem; }
   .stat-num {
     font-family:'Cormorant Garamond',serif;
@@ -130,7 +139,7 @@
     font-family:'Cormorant Garamond',serif;
     font-size:clamp(1.05rem,2vw,1.35rem); font-style:italic;
     color:var(--ink-soft); line-height:1.6;
-    border-top:1px solid var(--border); padding-top:1.8rem;
+    border-top:1px solid var(--border); padding-top:1.4rem;
   }
   .scroll-hint {
     position:absolute; bottom:2rem; left:50%; transform:translateX(-50%);
@@ -270,11 +279,11 @@
     .nav-toggle { display:flex; }
     .nav-drawer { display:flex; }
 
-    .hero { grid-template-columns:1fr; min-height:auto; }
-    .hero-left { padding:clamp(2.5rem,6vw,4rem) var(--pad); min-height:55vh; }
+    .hero { grid-template-columns:1fr; }
+    .hero-left { padding:clamp(2rem,5vw,3rem) var(--pad); min-height:auto; }
     .hero-left::after { display:none; }
-    .hero-right { padding:clamp(2.5rem,6vw,4rem) var(--pad); }
-    .hero-stats { gap:1.5rem; margin-bottom:2rem; }
+    .hero-right { padding:clamp(2rem,5vw,3rem) var(--pad); }
+    .hero-stats { gap:1.2rem; margin-bottom:1.5rem; }
     .scroll-hint { display:none; }
 
     .about-grid { grid-template-columns:1fr; gap:2rem; }
@@ -296,7 +305,7 @@
     :root { --nav-h:58px; }
 
     .hero-name  { font-size:clamp(2.6rem,10vw,3.5rem); }
-    .hero-stats { grid-template-columns:1fr 1fr; gap:1.2rem; margin-bottom:1.8rem; }
+    .hero-stats { grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1.2rem; }
     .hero-quote { font-size:1rem; }
 
     .section-header { gap:.8rem; margin-bottom:1.8rem; }
@@ -327,6 +336,79 @@
     .hero-stats { grid-template-columns:1fr; gap:1rem; }
     .stat-num   { font-size:2rem; }
   }
+
+  /* --- Image Styles --- */
+  .hero-img-wrapper {
+    position: relative;
+    margin-bottom: 1.5rem; /* CHANGED: was 3rem */
+    width: 100%;
+    max-width: 420px;
+  }
+
+  .hero-img {
+    width: 100%;
+    height: 300px; /* CHANGED: was 480px */
+    object-fit: cover;
+    object-position: top;
+    display: block;
+    position: relative;
+    z-index: 2;
+    filter: sepia(15%) contrast(105%);
+  }
+
+  .hero-img-frame {
+    position: absolute;
+    top: 0px; left: 0px;
+    width: 100%; height: 100%;
+    border: 2px solid var(--clay);
+    border-radius: 300px;
+    z-index: 1;
+  }
+
+  .hero-portrait {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 300px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+  }
+
+  @media (max-width: 900px) {
+    .hero-img-wrapper { margin: 0 auto 2rem auto; max-width: 340px; }
+    .hero-img { height: 260px; }
+  }
+  @media (max-width: 600px) {
+    .hero-img-wrapper { max-width: 100%; }
+    .hero-img { height: 220px; }
+    .hero-img-frame { display: none; }
+  }
+
+  /* --- Resume Button Styling --- */
+  .nav-resume a {
+    background: var(--clay) !important;
+    color: white !important;
+    padding: 0.6rem 1.4rem !important;
+    margin-left: 0.5rem;
+    border-radius: 2px;
+    font-weight: 500;
+    transition: all 0.3s ease !important;
+  }
+  .nav-resume a:hover {
+    background: var(--clay-dark) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(196, 120, 90, 0.2);
+  }
+  .drawer-resume {
+    color: var(--clay) !important;
+    font-weight: 500 !important;
+    border-top: 1px solid var(--border);
+    padding-top: 1.5rem;
+    margin-top: 0.5rem;
+  }
+  @media (max-width: 1050px) {
+    .nav-links { gap: 1rem; }
+    .nav-resume a { padding: 0.5rem 1rem !important; }
+  }
 </style>
 </head>
 <body>
@@ -341,6 +423,7 @@
     <li><a href="#education">Education</a></li>
     <li><a href="#certifications">Certifications</a></li>
     <li><a href="#contact">Contact</a></li>
+    <li class="nav-resume"><a href="Nidhi Resume.pdf" target="_blank" download>Resume</a></li>
   </ul>
   <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
     <span></span><span></span><span></span>
@@ -355,6 +438,7 @@
   <a href="#education"      class="drawer-link">Education</a>
   <a href="#certifications" class="drawer-link">Certifications</a>
   <a href="#contact"        class="drawer-link">Contact</a>
+  <a href="Nidhi Resume.pdf" target="_blank" download class="drawer-resume">Resume</a>
 </div>
 
 <!-- HERO -->
@@ -366,6 +450,10 @@
     <a href="mailto:panwalanidhi3@gmail.com" class="hero-cta">Get in touch →</a>
   </div>
   <div class="hero-right">
+    <div class="hero-img-wrapper fade-in">
+        <img src="nidhi.jpeg" alt="Nidhi Panwala" class="hero-portrait">
+        <div class="hero-img-frame"></div>
+    </div>
     <div class="hero-stats">
       <div class="stat"><div class="stat-num">70+</div><div class="stat-label">Interviews Coordinated</div></div>
       <div class="stat"><div class="stat-num">100+</div><div class="stat-label">Candidates Sourced</div></div>
@@ -540,15 +628,33 @@
       <div class="section-line"></div>
     </div>
     <div class="certs-grid fade-in">
-      <div class="cert-card"><div class="cert-issuer">LinkedIn Learning</div><div class="cert-name">Academic Research Foundations: Quantitative</div><div class="cert-date">Mar 2026</div></div>
-      <div class="cert-card"><div class="cert-issuer">LinkedIn Learning</div><div class="cert-name">HR: Leadership and Strategic Impact</div><div class="cert-date">Mar 2026</div></div>
-      <div class="cert-card"><div class="cert-issuer">LinkedIn Learning</div><div class="cert-name">Marketing Foundations: Integrated Marketing Strategies</div><div class="cert-date">Feb 2026</div></div>
-      <div class="cert-card"><div class="cert-issuer">Leaps Enterprise</div><div class="cert-name">Fundamentals of Data Analytics</div><div class="cert-date">Feb 2026</div></div>
-      <div class="cert-card"><div class="cert-issuer">Simplilearn</div><div class="cert-name">Power BI for Beginners</div><div class="cert-date">Apr 2025</div></div>
-      <div class="cert-card"><div class="cert-issuer">LinkedIn Learning</div><div class="cert-name">Strategic HR</div><div class="cert-date">Dec 2025</div></div>
-      <div class="cert-card"><div class="cert-issuer">Udemy</div><div class="cert-name">HR Analytics using MS Excel</div><div class="cert-date">Jan 2025</div></div>
-      <div class="cert-card"><div class="cert-issuer">Forage / GE Aerospace</div><div class="cert-name">GE Aerospace HR Job Simulation</div><div class="cert-date">May 2024</div></div>
-      <div class="cert-card"><div class="cert-issuer">Forage / Accenture</div><div class="cert-name">Project Management Simulation</div><div class="cert-date">Feb 2024</div></div>
+      <div class="cert-card"><div class="cert-issuer">LinkedIn Learning</div><div class="cert-name">Academic Research Foundations: Quantitative</div><div class="cert-date">Mar 2026</div>
+                <a class="cert-verify" href="https://www.linkedin.com/learning/certificates/efebaac296139d0d10720b5b8b12e0f8cde7def03d06f34897efd43a7f1ba6eb?u=471931458" target="_blank">Verify certificate ↗</a>
+      </div>
+      <div class="cert-card"><div class="cert-issuer">LinkedIn Learning</div><div class="cert-name">HR: Leadership and Strategic Impact</div><div class="cert-date">Mar 2026</div>
+                <a class="cert-verify" href="https://www.linkedin.com/learning/certificates/4ca91bfa3a322d9ec8a407c521e95d13d13aaaf9e09a008eae29f8d35b460969?u=471931458" target="_blank">Verify certificate ↗</a>
+      </div>
+      <div class="cert-card"><div class="cert-issuer">LinkedIn Learning</div><div class="cert-name">Marketing Foundations: Integrated Marketing Strategies</div><div class="cert-date">Feb 2026</div>
+              <a class="cert-verify" href="https://www.linkedin.com/learning/certificates/f3c1b47f2b0e7ba18c753e1bde3cf2405474b0730e3a3a2b3977a4255dcddcd7?u=471931458" target="_blank">Verify certificate ↗</a>
+      </div>
+      <div class="cert-card"><div class="cert-issuer">Leaps Enterprise</div><div class="cert-name">Fundamentals of Data Analytics</div><div class="cert-date">Feb 2026</div>
+              <a class="cert-verify" href="LEAPS.pdf" target="_blank">Verify certificate ↗</a>
+      </div>
+      <div class="cert-card"><div class="cert-issuer">Simplilearn</div><div class="cert-name">Power BI for Beginners</div><div class="cert-date">Apr 2025</div>
+              <a class="cert-verify" href="https://www.simplilearn.com/skillup-certificate-landing?token=eyJjb3Vyc2VfaWQiOiIxNzIyIiwiY2VydGlmaWNhdGVfdXJsIjoiaHR0cHM6XC9cL2NlcnRpZmljYXRlcy5zaW1wbGljZG4ubmV0XC9zaGFyZVwvODE3NTc2OF84NTE5MTQ3MTc0NDM2ODM1ODgzMy5wbmciLCJ1c2VybmFtZSI6Ik5pZGhpIFBhbndhbGEifQ%3D%3D&utm_source=shared-certificate&utm_medium=lms&utm_campaign=shared-certificate-promotion&referrer=https%3A%2F%2Flms.simplilearn.com%2Fcourses%2F4211%2FPower%2520BI%2520for%2520Beginners%2Fcertificate%2Fdownload-skillup&%24web_only=true&_branch_match_id=1568347039828657735&_branch_referrer=H4sIAAAAAAAAA8soKSkottLXL87MLcjJ1EssKNDLyczL1k%2FVzw3IqnAPiEw2NEyyrytKTUstKsrMS49PKsovL04tsvUBqkpN8cwDAOR87fdBAAAA" target="_blank">Verify certificate ↗</a>
+      </div>
+      <div class="cert-card"><div class="cert-issuer">LinkedIn Learning</div><div class="cert-name">Strategic HR</div><div class="cert-date">Dec 2025</div>
+              <a class="cert-verify" href="https://www.linkedin.com/learning/certificates/4f0689fa644e83f0492e04a989c541b76c81ceea959bebd91f02fb245277dae3?u=471931458" target="_blank">Verify certificate ↗</a>
+      </div>
+      <div class="cert-card"><div class="cert-issuer">Udemy</div><div class="cert-name">HR Analytics using MS Excel</div><div class="cert-date">Jan 2025</div>
+            <a class="cert-verify" href="https://www.udemy.com/certificate/UC-633089b4-25ab-4372-874f-af373ea16882/" target="_blank">Verify certificate ↗</a>
+      </div>
+      <div class="cert-card"><div class="cert-issuer">Forage / GE Aerospace</div><div class="cert-name">GE Aerospace HR Job Simulation</div><div class="cert-date">May 2024</div>
+            <a class="cert-verify" href="https://forage-uploads-prod.s3.amazonaws.com/completion-certificates/GE%20Aerospace/bAPubTkawzGexc6TT_GE%20Aerospace_4ktPgsmKgpH4edrAv_1714924371825_completion_certificate.pdf" target="_blank">Verify certificate ↗</a>
+      </div>
+      <div class="cert-card"><div class="cert-issuer">Forage / Accenture</div><div class="cert-name">Project Management Simulation</div><div class="cert-date">Feb 2024</div>
+            <a class="cert-verify" href="https://forage-uploads-prod.s3.amazonaws.com/completion-certificates/Accenture%20North%20America/tHFz7Bfjmh35DXQv6_Accenture%20North%20America_4ktPgsmKgpH4edrAv_1709054544835_completion_certificate.pdf" target="_blank">Verify certificate ↗</a>
+</div>
     </div>
   </div>
 </section>
@@ -603,7 +709,6 @@
 </footer>
 
 <script>
-  /* ── Hamburger / Drawer ── */
   const toggle = document.getElementById('navToggle');
   const drawer = document.getElementById('navDrawer');
 
@@ -614,13 +719,11 @@
   document.querySelectorAll('.drawer-link').forEach(l => l.addEventListener('click', closeDrawer));
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
 
-  /* ── Scroll fade-in ── */
   const fadeObs = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); fadeObs.unobserve(e.target); } });
   }, { threshold: 0.1 });
   document.querySelectorAll('.fade-in').forEach(el => fadeObs.observe(el));
 
-  /* ── Active nav highlight (desktop) ── */
   const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('.nav-links a');
   const navObs = new IntersectionObserver(entries => {
